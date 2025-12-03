@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./assets/sf-pro-display/SFPRODISPLAYREGULAR.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./assets/sf-pro-display/SFPRODISPLAYMEDIUM.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./assets/sf-pro-display/SFPRODISPLAYSEMIBOLDITALIC.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./assets/sf-pro-display/SFPRODISPLAYLIGHTITALIC.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@theme {
+  --font-sf: 'SF Pro Display', sans-serif;
+}
+
+/* Hide scrollbar globally but keep scrolling enabled */
+html, body {
+  overflow-y: scroll; /* enable vertical scrolling */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge Chromium */
+}
