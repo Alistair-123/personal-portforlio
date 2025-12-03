@@ -5,23 +5,27 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { div } from "framer-motion/client";
 
-export default function Navbar() {
+export default function Navbar({ scrollContainerRef}) {
     const [scrolled, setScrolled] = useState(false);
     const [open, setOpen] = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setScrolled(true);
-            } else {
-                setScrolled(false);
-                setOpen(false);
-            }
-        };
+     useEffect(() => {
+    const scrollContainer = scrollContainerRef?.current;
 
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    if (!scrollContainer) return;
+
+    const handleScroll = () => {
+      if (scrollContainer.scrollTop > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+        setOpen(false);
+      }
+    };
+
+    scrollContainer.addEventListener("scroll", handleScroll);
+    return () => scrollContainer.removeEventListener("scroll", handleScroll);
+  }, [scrollContainerRef]);
 
     // Lock body scroll when menu is open
     useEffect(() => {
@@ -45,7 +49,7 @@ export default function Navbar() {
                     transition={{ duration: 1 }}
                     className="font-sf font-medium text-[40px] text-black"
                 >
-                    Alistair
+                    alistair
                 </motion.div>
 
                 
