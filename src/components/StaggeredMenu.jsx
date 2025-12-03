@@ -104,7 +104,7 @@ export default function StaggeredMenuPanel({ open, onClose }) {
           exit="exit"
           className="flex-1 flex flex-col gap-3"
         >
-          {menuItems.map((menuItem, index) => (
+          {menuItems.map((menuItem) => (
             <motion.div
               key={menuItem.id}
               variants={item}
@@ -114,7 +114,7 @@ export default function StaggeredMenuPanel({ open, onClose }) {
                 to={menuItem.id}
                 smooth={true}
                 duration={600}
-                offset={-80} // keep this if navbar is fixed
+                // offset={-80} // keep this if navbar is fixed
                 containerId="scroll-container" // ⬅️ ADD THIS
                 onClick={onClose}
                 className="block relative text-7xl md:text-8xl font-bold text-black uppercase tracking-tighter leading-none py-2 group cursor-pointer"
@@ -123,9 +123,7 @@ export default function StaggeredMenuPanel({ open, onClose }) {
                 <span className="relative z-10 inline-block group-hover:text-violet-600 transition-colors duration-300">
                   {menuItem.label}
                 </span>
-                <span className="absolute top-2 right-0 text-lg font-normal text-violet-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  0{index + 1}
-                </span>
+               
               </Link>
             </motion.div>
           ))}
