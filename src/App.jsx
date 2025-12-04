@@ -9,7 +9,6 @@ function App() {
   return (
     <Router>
       <Layout>
-        {/* Each section corresponds to a menuItem.id/name */}
         <Element name="home" id="home">
           <Home />
         </Element>

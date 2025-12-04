@@ -16,7 +16,7 @@ export default function Navbar() {
   return (
     <>
       {/* Navbar */}
-      <div className="fixed top-0 left-0 w-full flex items-center justify-between p-4 px-8 z-50 bg-white/60">
+      <div className="fixed top-0 left-0 w-full flex items-center justify-between p-4 px-8 z-50 ">
 
         {/* Brand */}
         <motion.div
