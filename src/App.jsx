@@ -1,27 +1,33 @@
+// App.jsx
 import { BrowserRouter as Router } from "react-router-dom";
 import { Element } from "react-scroll";
 import Layout from "./layouts/Layout";
 import Home from "./pages/Home";
 import AboutMe from "./pages/AboutMe";
 import Projects from "./pages/Projects";
+import ClickSpark from "./components/clickSpark/ClickSpark";
 
 function App() {
   return (
-    <Router>
-      <Layout>
-        <Element name="home" id="home">
-          <Home />
-        </Element>
+    <ClickSpark sparkColor="#000000" sparkCount={14}>
+      <div className="min-h-screen w-full">
+        <Router>
+          <Layout>
+            <Element name="home" id="home">
+              <Home />
+            </Element>
 
-        <Element name="about" id="about">
-          <AboutMe />
-        </Element>
+            <Element name="about" id="about">
+              <AboutMe />
+            </Element>
 
-        <Element name="projects" id="projects">
-          <Projects />
-        </Element>
-      </Layout>
-    </Router>
+            <Element name="projects" id="projects">
+              <Projects />
+            </Element>
+          </Layout>
+        </Router>
+      </div>
+    </ClickSpark>
   );
 }
 

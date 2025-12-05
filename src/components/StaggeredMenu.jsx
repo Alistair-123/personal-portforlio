@@ -425,7 +425,7 @@ const StaggeredMenu = ({
           onClick={toggleMenu}
           type="button"
         >
-          <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
+          <span ref={textWrapRef} className="sm-toggle-textWrap text-3xl" aria-hidden="true">
             <span ref={textInnerRef} className="sm-toggle-textInner">
               {textLines.map((l, i) => (
                 <span className="sm-toggle-line" key={i}>

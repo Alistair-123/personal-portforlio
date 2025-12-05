@@ -40,31 +40,32 @@ function Home() {
         </h1>
 
         {/* Subtext */}
-        <p className="text-sm font-light text-gray-500 max-w-xl mx-auto">
+        <p className="text-md font-light text-gray-500 max-w-xl mx-auto">
           I design and build clean, dependable systems — from backend logic to
           polished user interfaces — with a focus on clarity, performance, and
           maintainability.
         </p>
 
         {/* Bottom row: avatar + name + button, centered */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-2">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-2 ">
   <div className="flex items-center gap-3">
     <AvatarStack />
-    <div className="text-xs text-gray-500 text-left">
-      <p className="text-lg text-black leading-tight">alistair</p>
+    
+  </div>
+
+        <div className="text-xs text-gray-500 text-left ">
+      <p className="text-lg text-black leading-tight">Alistair Jan</p>
       <p
-        className={`text-xs md:text-sm transition-all`}
+        className={`text-xs md:text-sm transition-all font-sf`}
       >
         React · Node · Systems
       </p>
     </div>
-  </div>
-
   <motion.button
     type="button"
     onHoverStart={() => setHovered(true)}
     onHoverEnd={() => setHovered(false)}
-    className="inline-flex items-center justify-center px-5 py-2.5 rounded-full font-sf text-sm md:text-base cursor-pointer transition-transform transition-shadow w-40" // <-- fixed width
+    className="inline-flex items-center justify-center px-5 py-2.5 rounded-full font-sf text-sm md:text-base cursor-pointer transition-transform transition-shadow w-40 " // <-- fixed width
     whileHover={{ scale: 1.03 }}
     whileTap={{ scale: 0.98 }}
   >
@@ -82,7 +83,7 @@ function Home() {
 
         {/* Underline animating left -> right */}
         <motion.span
-          className="absolute left-0 -bottom-0.5 h-[1px] w-full bg-black"
+          className="absolute left-0 -bottom-0.5 h-[2px] w-full bg-black"
           initial={{ scaleX: 0, originX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.8 }}
