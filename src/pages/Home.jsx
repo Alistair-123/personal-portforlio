@@ -31,12 +31,7 @@ function Home() {
 
         {/* Main heading */}
         <h1 className=" text-4xl md:text-6xl lg:text-7xl font-medium leading-tight text-gray-900 w-full mx-auto ">
-
-          Develops systems
-          
-          with precision and
-          
-          honed expertise.
+          Develops systems with precision and honed expertise.
         </h1>
 
         {/* Subtext */}
@@ -48,60 +43,56 @@ function Home() {
 
         {/* Bottom row: avatar + name + button, centered */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-2 ">
-  <div className="flex items-center gap-3">
-    <AvatarStack />
-    
-  </div>
+          <div className="flex items-center gap-3">
+            <AvatarStack />
+          </div>
 
-        <div className="text-xs text-gray-500 text-left ">
-      <p className="text-lg text-black leading-tight">Alistair Jan</p>
-      <p
-        className={`text-xs md:text-sm transition-all font-sf`}
-      >
-        React · Node · Systems
-      </p>
-    </div>
-  <motion.button
-    type="button"
-    onHoverStart={() => setHovered(true)}
-    onHoverEnd={() => setHovered(false)}
-    className="inline-flex items-center justify-center px-5 py-2.5 rounded-full font-sf text-sm md:text-base cursor-pointer transition-transform transition-shadow w-40 " // <-- fixed width
-    whileHover={{ scale: 1.03 }}
-    whileTap={{ scale: 0.98 }}
-  >
-    {/* Keep width stable, just swap content */}
-    {hovered ? (
-      <motion.span
-        key="text"
-        className="relative inline-block"
-        initial={{ opacity: 0, x: 20 }}   // from right
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.18 }}
-      >
-        {/* Label */}
-        <span>View Projects</span>
+          <div className="text-xs text-gray-500 text-left ">
+            <p className="text-lg text-black leading-tight">Alistair Jan</p>
+            <p className={`text-xs md:text-sm transition-all font-sf`}>
+              React · Node · Systems
+            </p>
+          </div>
+          <motion.button
+            type="button"
+            onHoverStart={() => setHovered(true)}
+            onHoverEnd={() => setHovered(false)}
+            className="inline-flex items-center justify-center px-5 py-2.5 rounded-full font-sf text-sm md:text-base cursor-pointer transition-transform transition-shadow w-40 " // <-- fixed width
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            {/* Keep width stable, just swap content */}
+            {hovered ? (
+              <motion.span
+                key="text"
+                className="relative inline-block"
+                initial={{ opacity: 0, x: 20 }} // from right
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.18 }}
+              >
+                {/* Label */}
+                <span>View Projects</span>
 
-        {/* Underline animating left -> right */}
-        <motion.span
-          className="absolute left-0 -bottom-0.5 h-[2px] w-full bg-black"
-          initial={{ scaleX: 0, originX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8 }}
-        />
-      </motion.span>
-    ) : (
-      <motion.span
-        key="icon"
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.18 }}
-      >
-        <RiMenu4Fill className="text-2xl" />
-      </motion.span>
-    )}
-  </motion.button>
-</div>
-
+                {/* Underline animating left -> right */}
+                <motion.span
+                  className="absolute left-0 -bottom-0.5 h-[2px] w-full bg-black"
+                  initial={{ scaleX: 0, originX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.8 }}
+                />
+              </motion.span>
+            ) : (
+              <motion.span
+                key="icon"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.18 }}
+              >
+                <RiMenu4Fill className="text-2xl" />
+              </motion.span>
+            )}
+          </motion.button>
+        </div>
       </motion.div>
     </div>
   );
