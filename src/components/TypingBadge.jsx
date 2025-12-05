@@ -50,23 +50,25 @@ export default function TypingBadge() {
 
   return (
     <motion.span
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.24em] text-gray-500 mb-6 bg-white/70 backdrop-blur font-normal"
-    >
-      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+    initial={{ opacity: 0, y: -8 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6, ease: "easeOut" }}
+    className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.24em] text-gray-500 mb-6 bg-white/70 backdrop-blur font-normal"
+  >
+    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
 
-      <span className="flex items-baseline gap-1">
-        <span>System Developer ·</span>
+    <span className="flex items-baseline gap-1">
+      <span>System Developer ·</span>
 
-        {/* typewriter word */}
-        <span className="relative inline-flex items-center">
-          <span>{displayed}</span>
-          {/* cursor */}
-          <span className="ml-1 h-4 w-[1px] bg-gray-500 animate-pulse" />
+      {/* typewriter word */}
+      <span className="relative inline-flex items-center">
+        {/* reserve width + stop wrapping */} 
+        <span className="inline-block w-[16ch] whitespace-nowrap">
+          {displayed}
         </span>
+        <span className="ml-1 h-4 w-[1px] bg-gray-500 animate-pulse" />
       </span>
-    </motion.span>
+    </span>
+  </motion.span>
   );
 }

@@ -1,73 +1,107 @@
-import React from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import AvatarStack from "../components/AvatarStack";
 import TypingBadge from "../components/TypingBadge";
+import { RiMenu4Fill } from "react-icons/ri";
+
 function Home() {
+  const [hovered, setHovered] = useState(false);
+
   return (
-    <div className="relative font-sf h-screen flex items-center justify-between px-8 bg-white overflow-hidden">
-      {/* Soft background accents */}
-      <div className="pointer-events-none absolute -top-40 -left-32 w-72 h-72 rounded-full bg-violet-100 blur-3xl opacity-60" />
-      <div className="pointer-events-none absolute -bottom-56 right-0 w-96 h-96 rounded-full bg-emerald-100 blur-3xl opacity-70" />
+    <div className="relative font-sf min-h-screen flex items-center justify-center bg-white overflow-hidden">
+      {/* Background accents (optional) */}
+      {/* <div className="pointer-events-none absolute -top-40 -left-32 w-72 h-72 rounded-full bg-violet-100 blur-3xl opacity-70" />
+      <div className="pointer-events-none absolute -bottom-56 right-0 w-96 h-96 rounded-full bg-emerald-100 blur-3xl opacity-60" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(15,23,42,0.03),_transparent)]" /> */}
 
-      {/* Left content */}
-      <div className="relative max-w-4xl p-6 z-10">
-        <TypingBadge />
+      <motion.div
+        className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center text-center gap-6 "
+        initial={{ opacity: 0, y: 28 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] }}
+      >
+        {/* Top badge – centered */}
+        <div className="h-8 flex items-center justify-center">
+          {/* <TypingBadge /> */}
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gray-200 text-[11px] uppercase tracking-[0.24em] text-gray-500 bg-white/80 backdrop-blur">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            System Developer · Precision Focused
+          </span>
+        </div>
 
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-[500] leading-tight  text-black">
+        {/* Main heading */}
+        <h1 className=" text-4xl md:text-6xl lg:text-7xl font-medium leading-tight text-gray-900 w-full mx-auto ">
+
           Develops systems
-          <br />
+          
           with precision and
-          <br />
+          
           honed expertise.
         </h1>
 
-        <p className="text-lg text-gray-600 mb-6 italic font-light">
-          Doryoku wa kesshite anata o uragirimasen.
+        {/* Subtext */}
+        <p className="text-sm font-light text-gray-500 max-w-xl mx-auto">
+          I design and build clean, dependable systems — from backend logic to
+          polished user interfaces — with a focus on clarity, performance, and
+          maintainability.
         </p>
 
-        <div className="flex items-center gap-6">
-          <AvatarStack />
+        {/* Bottom row: avatar + name + button, centered */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-2">
+  <div className="flex items-center gap-3">
+    <AvatarStack />
+    <div className="text-xs text-gray-500 text-left">
+      <p className="text-lg text-black leading-tight">alistair</p>
+      <p
+        className={`text-xs md:text-sm transition-all`}
+      >
+        React · Node · Systems
+      </p>
+    </div>
+  </div>
 
-          <div className="pl-6 border-l border-gray-200">
-            <p className="text-xs uppercase tracking-[0.24em] text-gray-500 mb-1 font-normal">
-              Currently building
-            </p>
-            <p className="text-sm text-gray-900 font-normal">
-              Full–stack systems with MERN Stack
-            </p>
-          </div>
-        </div>
-      </div>
+  <motion.button
+    type="button"
+    onHoverStart={() => setHovered(true)}
+    onHoverEnd={() => setHovered(false)}
+    className="inline-flex items-center justify-center px-5 py-2.5 rounded-full font-sf text-sm md:text-base cursor-pointer transition-transform transition-shadow w-40" // <-- fixed width
+    whileHover={{ scale: 1.03 }}
+    whileTap={{ scale: 0.98 }}
+  >
+    {/* Keep width stable, just swap content */}
+    {hovered ? (
+      <motion.span
+        key="text"
+        className="relative inline-block"
+        initial={{ opacity: 0, x: 20 }}   // from right
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.18 }}
+      >
+        {/* Label */}
+        <span>View Projects</span>
 
-      {/* Right abstract design */}
-      <div className="relative hidden lg:flex items-center justify-center flex-1 h-full z-10">
-        <div className="relative w-72 h-72 rounded-3xl border border-gray-200 bg-white/60 backdrop-blur shadow-xl overflow-hidden">
-          {/* Gradient orb */}
-          <div className="absolute -top-10 -right-6 w-40 h-40 bg-gradient-to-br from-violet-500 via-fuchsia-500 to-emerald-400 rounded-full opacity-80 blur-[2px]" />
+        {/* Underline animating left -> right */}
+        <motion.span
+          className="absolute left-0 -bottom-0.5 h-[1px] w-full bg-black"
+          initial={{ scaleX: 0, originX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.8 }}
+        />
+      </motion.span>
+    ) : (
+      <motion.span
+        key="icon"
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.18 }}
+      >
+        <RiMenu4Fill className="text-2xl" />
+      </motion.span>
+    )}
+  </motion.button>
+</div>
 
-          {/* Outline ring */}
-          <div className="absolute -bottom-16 -left-10 w-40 h-40 rounded-full border-2 border-dashed border-gray-300" />
-
-          {/* Grid */}
-          <div className="absolute inset-6 grid grid-cols-3 grid-rows-3 gap-2 opacity-70">
-            {Array.from({ length: 9 }).map((_, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-gray-200/70 bg-white/60"
-              />
-            ))}
-          </div>
-
-          {/* Label */}
-          <div className="absolute bottom-5 left-5">
-            <p className="text-[11px] uppercase tracking-[0.24em] text-gray-500 font-normal">
-              Portfolio System
-            </p>
-            <p className="text-sm text-gray-900 font-[500]">
-              Alistair · React / Node
-            </p>
-          </div>
-        </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

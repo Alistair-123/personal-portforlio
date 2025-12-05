@@ -1,59 +1,29 @@
-import { useEffect, useState } from "react";
-import StaggeredMenuPanel from "./StaggeredMenu";
+// src/components/Navbar.jsx
+import React from "react";
+import StaggeredMenu from "./StaggeredMenu";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { HiMenuAlt3 } from "react-icons/hi";
+// These are the items that will show in the GSAP staggered menu
+const menuItems = [
+  { label: "Home", link: "#home" },
+  { label: "About", link: "#about" },
+  { label: "Projects", link: "#projects" },
+  { label: "Contact", link: "#contact" },
+];
+
+// These show up under the "Socials" section
+const socialItems = [
+  { label: "GitHub", link: "https://github.com/your-username" },
+  { label: "LinkedIn", link: "https://www.linkedin.com/in/your-handle" },
+  // add more if you want
+];
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-
-  // Lock body scroll when menu is open
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "unset";
-  }, [open]);
-
   return (
-    <>
-      {/* Navbar */}
-      <div className="fixed top-0 left-0 w-full flex items-center justify-between p-4 px-8 z-50 ">
-
-        {/* Brand */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="font-sf font-medium text-[40px] text-black"
-        >
-          alistair
-        </motion.div>
-
-        {/* Right side */}
-        <div className="flex items-center gap-4">
-
-          {/* Hamburger Menu - ALWAYS visible */}
-          <motion.button
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="text-black cursor-pointer hover:text-gray-700 transition duration-150"
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle menu"
-          >
-            {open ? <X size={32} /> : <HiMenuAlt3 size={38} />}
-          </motion.button>
-        </div>
-      </div>
-
-      {/* Sliding Menu Panel */}
-      <AnimatePresence>
-        {open && (
-          <StaggeredMenuPanel
-            open={open}
-            onClose={() => setOpen(false)}
-          />
-        )}
-      </AnimatePresence>
-    </>
+    <StaggeredMenu
+      position="right"        // slide in from the right        // makes it cover the viewport like your old navbar
+      items={menuItems}
+      socialItems={socialItems}
+      accentColor="#5227FF"   // matches the CSS accent color
+    />
   );
 }
