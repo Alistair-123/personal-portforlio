@@ -8,7 +8,7 @@ function Home() {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div className="relative font-sf min-h-screen flex items-center justify-center bg-white overflow-hidden">
+      <section className="stacked-section h-screen relative font-sf flex items-center justify-center bg-white overflow-hidden">
       {/* Background accents (optional) */}
       {/* <div className="pointer-events-none absolute -top-40 -left-32 w-72 h-72 rounded-full bg-violet-100 blur-3xl opacity-70" />
       <div className="pointer-events-none absolute -bottom-56 right-0 w-96 h-96 rounded-full bg-emerald-100 blur-3xl opacity-60" />
@@ -30,7 +30,7 @@ function Home() {
         </div>
 
         {/* Main heading */}
-        <h1 className=" text-4xl md:text-6xl lg:text-7xl font-medium leading-tight text-gray-900 w-full mx-auto ">
+        <h1 className=" text-4xl md:text-6xl lg:text-7xl font-medium leading-tight w-full mx-auto ">
           Develops systems with precision and honed expertise.
         </h1>
 
@@ -94,7 +94,7 @@ function Home() {
           </motion.button>
         </div>
       </motion.div>
-    </div>
+    </section>
   );
 }
 

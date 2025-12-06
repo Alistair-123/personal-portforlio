@@ -41,18 +41,18 @@ html, body {
     /* cursor: none; */
 }
 
-html::-webkit-scrollbar,
+/* html::-webkit-scrollbar,
 body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge Chromium */
+  display: none; 
 }
 .scroll-container {
-  overflow-y: scroll;           /* Enable vertical scrolling */
-  scrollbar-width: none;        /* Firefox */
-  -ms-overflow-style: none;     /* IE and Edge */
+  overflow-y: scroll;          
+  scrollbar-width: none;       
+  -ms-overflow-style: none;   
 }
 
 .scroll-container::-webkit-scrollbar {
-  width: 0;                    /* Hide scrollbar width */
-  height: 0;                   /* Hide scrollbar height (for horizontal scroll) */
+  width: 0;                    
+  height: 0;                   
 }
-
+ */

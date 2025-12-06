@@ -1,5 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+// src/pages/AboutMe.jsx (or wherever this lives)
+import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
+import myImage from "../assets/myImage.png";
 
 // athlete images
 import basketImg from "../assets/basket.png";
@@ -12,60 +14,54 @@ import createImg from "../assets/create.png";
 import dashboardImg from "../assets/dashboard.png";
 import qwImg from "../assets/qw.png";
 
-const fixedTexts = ["Who is Alistair?"];
+const fixedTexts = ["Who is Alistair?", " "];
 
 const scrollTexts = [
   "A passionate developer",
+  " ",
   "an athlete",
   "Building clean and precise systems",
   "Focused on innovation",
   "Driven by results",
+  " ",
 ];
 
-export default function SplitScrollText() {
-  const [fixedIndex, setFixedIndex] = useState(0);
-  const scrollRef = useRef(null);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-
-    function onScroll() {
-      if (el.scrollTop + el.clientHeight >= el.scrollHeight) {
-        setFixedIndex((prev) =>
-          prev + 1 < fixedTexts.length ? prev + 1 : prev
-        );
-      }
-    }
-
-    el.addEventListener("scroll", onScroll);
-    return () => el.removeEventListener("scroll", onScroll);
-  }, []);
+export function SplitScrollText() {
+  const [fixedIndex] = useState(0);
+  const sectionRefs = useRef([]);
 
   const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 24 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: ["easeIn", "easeOut"],
-        delay: 0.2,
+        duration: 0.4,
+        ease: "easeOut",
       },
     },
   };
 
   return (
     <div className="flex min-h-screen font-sf">
-      {/* Fixed left side */}
-      <div className="w-1/2 p-10 sticky top-0 h-screen flex items-center justify-center">
-        <h1 className="text-9xl font-medium text-center">
+      {/* Fixed left side with gray image */}
+      <motion.div
+        className="w-1/2 p-10 sticky top-0 h-screen flex items-start justify-start bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${myImage})`,
+          filter: "grayscale(100%)",
+        }}
+        initial={{ opacity: 0, x: -80 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1, ease: "easeIn" }}
+      >
+        <h1 className="text-2xl font-medium text-center text-white/90">
           {fixedTexts[fixedIndex]}
         </h1>
-      </div>
+      </motion.div>
 
-      {/* Scrollable right side */}
-      <div ref={scrollRef} className="w-1/2 h-auto p-10 space-y-32">
+      {/* Right side scrolling content */}
+      <div className="w-1/2 p-10 space-y-32">
         {scrollTexts.map((text, i) => {
           const isAthlete = text === "an athlete";
           const isSystems = text === "Building clean and precise systems";
@@ -73,6 +69,7 @@ export default function SplitScrollText() {
           return (
             <motion.section
               key={i}
+              ref={(el) => (sectionRefs.current[i] = el)}
               className="min-h-screen flex items-center"
               variants={sectionVariants}
               initial="hidden"
@@ -80,9 +77,8 @@ export default function SplitScrollText() {
               viewport={{ once: true, amount: 0.3 }}
             >
               {isAthlete ? (
-                // SPECIAL LAYOUT FOR "an athlete"
-                <div className="relative w-full h-svh">
-                  {/* background collage */}
+                // Athlete grid
+                <div className="relative w-full h-[100vh] overflow-hidden">
                   <div className="absolute inset-0">
                     <img
                       src={basketImg}
@@ -102,57 +98,64 @@ export default function SplitScrollText() {
                     <img
                       src={runningImg}
                       alt="Running"
-                      className="absolute left-1/2 bottom-6 w-40 md:w-52 -translate-x-1/2 rounded-2xl shadow-lg"
+                      className="absolute left-1/2 bottom-10 w-40 md:w-52 -translate-x-1/2 rounded-2xl shadow-lg"
                     />
                   </div>
 
-                  <div className="relative z-10 flex h-full items-start justify-end pr-10 pt-16">
-                    <h2 className="text-2xl md:text-7xl rounded-2xl p-10 ">
+                  <motion.div
+                    className="relative z-10 flex h-full items-start justify-end pr-10 pt-16"
+                    initial={{ opacity: 0, x: 80 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{
+                      duration: 0.6,
+                      ease: "easeIn",
+                    }}
+                  >
+                    <h2 className="text-2xl md:text-7xl rounded-2xl p-10">
                       {text}
                     </h2>
-                  </div>
+                  </motion.div>
                 </div>
               ) : isSystems ? (
-                // SPECIAL LAYOUT FOR "Building clean and precise systems"
-                <div className="relative w-full h-svh">
-                  {/* background collage for system screenshots */}
+                // Systems / app images
+                <div className="relative w-full h-[100vh] overflow-hidden">
                   <div className="absolute inset-0">
                     <img
                       src={createImg}
                       alt="Creating system"
                       className="absolute left-6 top-10 w-40 md:w-100 rounded-2xl shadow-lg opacity-90"
                     />
-
                     <img
                       src={dashboardImg}
                       alt="System dashboard"
-                      className="absolute left-130 top-40 -translate-x-1/2 w-56 md:w-132 rounded-2xl shadow-lg opacity-95"
+                      className="absolute left-1/3 top-40 -translate-x-1/2 w-56 md:w-132 rounded-2xl shadow-lg opacity-95"
                     />
-
-                    {/* ⭐ HERO IMAGE — MAKE THIS BIG AND IMPORTANT */}
                     <img
                       src={qwImg}
                       alt="System detail"
-                      className="
-                        absolute 
-                        left-1/2 
-                        bottom-6 
-                        w-152            /* base size bigger */
-                        md:w-150    /* large mockup size for bigger screens */
-                        opacity-100
-                      "
+                      className="absolute left-1/2 bottom-6 -translate-x-1/2 w-52 md:w-72 opacity-100"
                     />
                   </div>
 
-                  <div className="relative z-10 flex h-full items-center justify-start pl-10">
+                  <motion.div
+                    className="relative z-10 flex h-full items-center justify-start pl-10"
+                    initial={{ opacity: 0, x: -80 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{
+                      duration: 0.6,
+                      ease: "easeIn",
+                    }}
+                  >
                     <h2 className="text-xl md:text-3xl lg:text-5xl w-50 rounded-2xl mt-10 bg-white/30">
                       {text}
                     </h2>
-                  </div>
+                  </motion.div>
                 </div>
               ) : (
-                // default layout for the rest
-                <div className="w-full h-[80vh] flex items-center">
+                // Simple text sections
+                <div className="w-full h-[70vh] flex items-center">
                   <h2 className="text-4xl md:text-5xl">{text}</h2>
                 </div>
               )}
@@ -161,5 +164,14 @@ export default function SplitScrollText() {
         })}
       </div>
     </div>
+  );
+}
+
+// AboutMe page wrapper
+export default function AboutMe() {
+  return (
+    <section className="min-h-screen bg-white">
+      <SplitScrollText />
+    </section>
   );
 }
