@@ -10,53 +10,29 @@ gsap.registerPlugin(ScrollTrigger);
 const Layout = ({ children }) => {
   const mainRef = useRef(null);
 
-  useLayoutEffect(() => {
-    const mainEl = mainRef.current;
-    if (!mainEl) return;
+ useLayoutEffect(() => {
+  const mainEl = mainRef.current;
+  if (!mainEl) return;
 
-    // GSAP context to safely clean up
-    const ctx = gsap.context(() => {
-      // Smooth scroll for wheel events on the main scroll container
-      const onWheel = (e) => {
-        e.preventDefault();
+  const ctx = gsap.context(() => {
+    // Keep your pinned sections
+    const sections = gsap.utils.toArray(".stacked-section", mainEl);
 
-        const delta = e.deltaY;
-        const targetScroll = mainEl.scrollTop + delta;
-
-        gsap.to(mainEl, {
-          scrollTop: targetScroll,
-          duration: 0.6,
-          ease: "power3.out",
-          overwrite: "auto",
-        });
-      };
-
-      mainEl.addEventListener("wheel", onWheel, { passive: false });
-
-      // Stacked / pinned sections like your Home hero
-      const sections = gsap.utils.toArray(".stacked-section", mainEl);
-
-      sections.forEach((section) => {
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top top",
-          end: "+=60%",
-          pin: true,
-          pinSpacing: false,
-          scroller: mainEl,
-          anticipatePin: 1,
-        });
+    sections.forEach((section) => {
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: "+=60%",
+        pin: true,
+        pinSpacing: false,
+        scroller: mainEl,
       });
+    });
+  }, mainEl);
 
-      // cleanup
-      return () => {
-        mainEl.removeEventListener("wheel", onWheel);
-        ScrollTrigger.getAll().forEach((st) => st.kill());
-      };
-    }, mainEl);
+  return () => ctx.revert();
+}, []);
 
-    return () => ctx.revert();
-  }, []);
 
   return (
     <div className="flex h-dvh overflow-hidden">

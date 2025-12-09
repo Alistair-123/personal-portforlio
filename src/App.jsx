@@ -20,9 +20,9 @@ function App() {
             </Element>
 
             {/* ⬇️ First scroll should bring this up over Home */}
-            <Element name="pre-about" id="pre-about">
+            {/* <Element name="pre-about" id="pre-about">
               <PreAbout />
-            </Element>
+            </Element> */}
 
             <Element name="about" id="about">
               <AboutMe />
