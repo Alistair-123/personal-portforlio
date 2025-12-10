@@ -8,7 +8,7 @@ function Home() {
   const [hovered, setHovered] = useState(false);
 
   return (
-      <section className="stacked-section h-screen relative font-sf flex items-center justify-center bg-white overflow-hidden">
+      <section className=" h-screen relative font-sf flex items-center justify-center bg-white overflow-hidden">
       {/* Background accents (optional) */}
       {/* <div className="pointer-events-none absolute -top-40 -left-32 w-72 h-72 rounded-full bg-violet-100 blur-3xl opacity-70" />
       <div className="pointer-events-none absolute -bottom-56 right-0 w-96 h-96 rounded-full bg-emerald-100 blur-3xl opacity-60" />

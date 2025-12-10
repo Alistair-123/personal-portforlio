@@ -41,7 +41,7 @@ html, body {
     /* cursor: none; */
 }
 
-/* html::-webkit-scrollbar,
+html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none; 
 }
@@ -55,4 +55,4 @@ body::-webkit-scrollbar {
   width: 0;                    
   height: 0;                   
 }
- */
+
