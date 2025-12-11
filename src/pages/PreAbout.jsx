@@ -24,7 +24,7 @@ const FLOW_STEPS = [
     id: "backend",
     title: "Backend",
     subtitle: "Models → Controllers → Routes",
-    body: "Shape the database and business logic so the system is predictable, secure, and easy to extend.",
+    body: "Shape the database and logic's so the system is predictable, secure, and easy to extend.",
   },
   {
     id: "frontend",
@@ -52,18 +52,7 @@ const FLOW_STEPS = [
   },
 ];
 
-// Small Apple-style icon chips scattered inside each card
-const ICON_GRID = [
-  { label: "</>" }, // code brackets
-  { label: "⇄" }, // flow arrows
-  { label: "◇" }, // system node
-  { label: "{ }" }, // config
-  { label: "☁︎" }, // server / cloud
-  { label: "⧉" }, // components
-  { label: "⚙︎" }, // settings
-  { label: "▢▢" }, // UI layout
-  { label: "∞" }, // loops / pipelines
-];
+
 
 export default function PreAbout() {
   const sectionRef = useRef(null); // whole tall section
@@ -88,7 +77,7 @@ export default function PreAbout() {
       // Base scroll length (e.g. 3x viewport height)
       const base = window.innerHeight * 5;
       // Make it slower / longer by multiplying
-      return base * 1.2;
+      return base * 0.5;
     };
 
     gsap.set(track, { x: 0 });
@@ -105,7 +94,6 @@ export default function PreAbout() {
         pin: false,
         anticipatePin: 1,
         invalidateOnRefresh: true,
-        markers: true,
       },
     });
 
@@ -118,7 +106,7 @@ export default function PreAbout() {
   return (
     <section
       ref={sectionRef}
-      className="relative z-30 w-full h-[680vh] bg-white"
+      className="relative z-30 w-full h-[450vh] bg-white"
     >
       {/* STICKY VIEWPORT */}
       <div className="top-0 sticky h-screen flex items-center justify-center">
@@ -177,7 +165,7 @@ export default function PreAbout() {
                   <div className="shrink-0 w-[200px]" />
 
                   {FLOW_STEPS.map((step) => (
-  <FlowStepCard key={step.id} step={step} ICON_GRID={ICON_GRID} />
+  <FlowStepCard key={step.id} step={step} />
 ))}
 
                 </div>

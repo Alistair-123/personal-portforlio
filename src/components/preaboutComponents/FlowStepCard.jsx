@@ -1,149 +1,244 @@
-import React from "react";
-import { motion } from "framer-motion";
-import strategy from "../../assets/strategy.mp4"
-import { div } from "framer-motion/client";
-import { useInView } from "framer-motion";
+// src/components/preaboutComponents/FlowStepCard.jsx
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
-const ref = React.useRef(null);
-const isInView = useInView(ref, { once: true, margin: '0px 0px -100px 0px' });
+// You can keep these or replace with your own later.
+// For now they're just wired into the config.
+import strategy from "../../assets/strategy.mp4";
+import design from "../../assets/design.mp4";
+import backendVideo from "../../assets/backend.mp4";
+import computer from "../../assets/computer.mp4";
+import integrate from "../../assets/integrate.mp4";
+import test from "../../assets/test-results.mp4";
+import launch from "../../assets/launch.mp4";
 
+const STEP_CONFIG = {
+  plan: {
+    titleSize: "text-5xl md:text-6xl lg:text-7xl",
+    bodySize: "text-lg md:text-xl",
+    microCopy: null,
+    video: design,
+  },
+  design: {
+    titleSize: "text-5xl md:text-6xl lg:text-7xl",
+    bodySize: "text-lg md:text-xl",
+    microCopy: null,
+    video: strategy,
+  },
+  backend: {
+    titleSize: "text-4xl md:text-5xl lg:text-6xl",
+    bodySize: "text-base md:text-lg",
+    microCopy: "Models, controllers, routes — predictable logic, no magic.",
+    video: backendVideo,
+  },
+  frontend: {
+    titleSize: "text-4xl md:text-5xl lg:text-6xl",
+    bodySize: "text-base md:text-lg",
+    video: computer, // plug your mp4 later
+  },
+  integrate: {
+    titleSize: "text-4xl md:text-5xl lg:text-6xl",
+    bodySize: "text-base md:text-lg",
+    microCopy:
+      "Wiring auth, roles, and the exact paths your users hit every day.",
+    video: integrate,
+  },
+  test: {
+    titleSize: "text-4xl md:text-5xl lg:text-6xl",
+    bodySize: "text-base md:text-lg",
+    microCopy: "Break it yourself first — edge cases matter.",
+    video: test,
+  },
+  polish: {
+    titleSize: "text-4xl md:text-5xl lg:text-6xl",
+    bodySize: "text-base md:text-lg",
+    microCopy:
+      "Deployment, performance, and refinement that survives real usage.",
+    video: launch,
+  },
+};
 
-export default function FlowStepCard({ step, ICON_GRID }) {
-    const isPlan = step.id === "plan";
-    const isDesign = step.id === "design";
-    const isBackend = step.id === "backend";
-    const isFrontend = step.id === "frontend";
-    const isIntegrate = step.id === "integrate";
-    const isTest = step.id === "test";
-    const isPolish = step.id === "polish";
+// Motion variants
+const cardVariants = {
+  hidden: { opacity: 0, y: 32 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 0.61, 0.36, 1],
+      staggerChildren: 0.08,
+    },
+  },
+};
 
-    return (
-        <motion.div
-            key={step.id}
-            className="
+const contentVariants = {
+  hidden: { opacity: 0, y: 18 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: [0.22, 0.61, 0.36, 1] },
+  },
+};
+
+const titleVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: [0.22, 0.61, 0.36, 1] },
+  },
+};
+
+const subtitleVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: [0.22, 0.61, 0.36, 1] },
+  },
+};
+
+const bodyVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: [0.22, 0.61, 0.36, 1] },
+  },
+};
+
+const microCopyVariants = {
+  hidden: { opacity: 0, y: 8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: [0.22, 0.61, 0.36, 1] },
+  },
+};
+
+const mediaContainerVariants = {
+  hidden: { opacity: 0, x: 20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.5, ease: [0.22, 0.61, 0.36, 1], delay: 0.1 },
+  },
+};
+
+const mediaVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: [0.22, 0.61, 0.36, 1] },
+  },
+};
+
+export default function FlowStepCard({ step }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: true,
+    margin: "0px 0px -100px 0px",
+  });
+
+  const config = STEP_CONFIG[step.id] || {};
+  const hasVideo = !!config.video;
+
+  return (
+    <motion.div
+      ref={ref}
+      className="
         pre-flow-step flex-shrink-0 
-        w-[52vw] 
-        h-[80%]
+        w-[60vw] 
+        h-[75%]
         px-2 py-3
         flex
         items-center
         justify-center
+        
       "
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-        >
-            {/* CARD */}
-            <div
-                className="
+      variants={cardVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+    >
+      <div
+        className="
           relative flex h-full w-full     
           rounded-[32px]
           bg-white
-          flex items-center justify-center
+          items-stretch justify-between
           backdrop-blur-xl
           overflow-hidden
           px-8 md:px-10 py-8
           gap-6
           font-sf
           shadow-md
+          border border-gray-200
         "
-            >
-                {/* LEFT CONTENT */}
-                <div className="relative z-10 flex flex-col justify-center flex-1 min-w-0 items-start ">
+      >
+        {/* LEFT: TEXT CONTENT */}
+        <motion.div
+          className="flex flex-col justify-center flex-[1.15] min-w-0 items-start space-y-4"
+          variants={contentVariants}
+        >
+          <motion.h3
+            className={`
+              ${config.titleSize || "text-4xl md:text-5xl"}
+              font-[500] tracking-tight text-slate-900
+            `}
+            variants={titleVariants}
+          >
+            {step.title}
+          </motion.h3>
 
+          <motion.span
+            className="font-medium text-[15px] md:text-[17px] text-slate-500"
+            variants={subtitleVariants}
+          >
+            {step.subtitle}
+          </motion.span>
 
-                    {isPlan && (
-                        <motion.div
-                            className=" rounded-lg p-6 flex flex-col  absolute  bg-white "
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.20, ease: "easeOut" }}
-                            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                        >
-                            {/* Title */}
-                            <h3 className="text-8xl   font-[500]  inline-flex items-center gap-4">
-                                {step.title}
-                            </h3>
-
-                            {/* Subtitle */}
-                            <span className="font-medium  text-[20px] text-slate-500 mb-3">
-                                {step.subtitle}
-                            </span>
-
-                            {/* Body */}
-                            <p className="text-[30px] mt-12 leading-relaxed text-slate-600">
-                                {step.body}
-                            </p>
-                        </motion.div>
-                    )}
-
-                    {isDesign && (
-                        <div className="mt-3 text-[12px] text-gray-500">
-                            Data flow, roles, and state transitions — clarity starts here.
-                        </div>
-                    )}
-
-                    {isBackend && (
-                        <div className="mt-3 text-[12px] text-gray-500">
-                            Models, controllers, routes — predictable logic, no magic.
-                        </div>
-                    )}
-
-                    {isFrontend && (
-                        <div className="mt-3 text-[12px] text-gray-500">
-                            Interfaces grounded on real workflow, not just database tables.
-                        </div>
-                    )}
-
-                    {isIntegrate && (
-                        <div className="mt-3 text-[12px] text-gray-500">
-                            Wiring auth, roles, and the exact paths users hit every day.
-                        </div>
-                    )}
-
-                    {isTest && (
-                        <div className="mt-3 text-[12px] text-gray-500">
-                            Break it yourself first — edge cases matter.
-                        </div>
-                    )}
-
-                    {isPolish && (
-                        <div className="mt-3 text-[12px] text-gray-500">
-                            Deployment, performance, and refinement that survives real usage.
-                        </div>
-                    )}
-                </div>
-
-                {/* RIGHT ICON GRID */}
-                <div className="relative z-10 flex w-[50%] items-center justify-center bg-transparent backdrop-blur-sm ">
-                    <div className=" p-2 opacity-80  h-full">
-                        {isPlan && (
-                            <motion.div
-                                className="h-full "
-                                initial={{ opacity: 0, y: 8 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 }}
-                            >
-                                <video
-                                    src={strategy}
-                                    autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                    className="w-full h-full rounded-2xl "
-                                />
-
-                            </motion.div>
-                        )}
-
-                        {isDesign && (
-                            <div>
-                                qwe
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </div>
+          <motion.p
+            className={`
+              ${config.bodySize || "text-base md:text-lg"}
+              leading-relaxed text-slate-600 mt-4
+            `}
+            variants={bodyVariants}
+          >
+            {step.body}
+          </motion.p>
         </motion.div>
-    );
+
+        {/* RIGHT: VIDEO / MEDIA */}
+        <motion.div
+          className="
+            relative z-10 flex 
+            w-[40%] 
+            h-full
+            items-center justify-center 
+            bg-transparent backdrop-blur-sm
+           
+          "
+          variants={mediaContainerVariants}
+        >
+          {hasVideo && (
+            <motion.div
+              className="w-[80%] h-3/4 "
+              variants={mediaVariants}
+            >
+              <video
+                src={config.video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full rounded-2xl object-cover"
+              />
+            </motion.div>
+          )}
+        </motion.div>
+      </div>
+    </motion.div>
+  );
 }
