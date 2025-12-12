@@ -218,13 +218,13 @@ export default function FlowStepCard({ step }) {
             h-full
             items-center justify-center 
             bg-transparent backdrop-blur-sm
-           
+              
           "
           variants={mediaContainerVariants}
         >
           {hasVideo && (
             <motion.div
-              className="w-[80%] h-3/4 "
+              className="w-full h-3/4 "
               variants={mediaVariants}
             >
               <video
